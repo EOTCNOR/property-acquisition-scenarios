@@ -1,0 +1,518 @@
+{
+  "core": {
+    "target_bid": {
+      "id": "target_bid",
+      "value": 22000000,
+      "description": "Expected purchase price for Gransdalen 29. Increasing this raises total acquisition cost and increases pressure on financing and renovation headroom."
+    },
+    "closing_cost_pct": {
+      "id": "closing_cost_pct",
+      "value": 2.5,
+      "description": "Percentage allowance for transaction costs such as legal, fees, and duties. Increasing it reduces cash headroom at closing."
+    },
+    "bank_loan": {
+      "id": "bank_loan",
+      "value": 16000000,
+      "description": "Debt available from the bank. Increasing it helps cover the purchase but increases interest and repayment pressure."
+    },
+    "own_funds": {
+      "id": "own_funds",
+      "value": 6000000,
+      "description": "Equity the church can contribute. Increasing it lowers the funding gap and future debt burden, but ties up more cash immediately."
+    },
+    "nominal_rate": {
+      "id": "nominal_rate",
+      "value": 6.85,
+      "description": "Approximate borrowing rate used in the high-level debt-service estimate. Increasing it raises annual financing pressure."
+    },
+    "amort_years": {
+      "id": "amort_years",
+      "value": 20,
+      "description": "Repayment period used in the rough debt-service estimate. Shorter periods increase annual payments but reduce debt faster."
+    },
+    "cash_buffer": {
+      "id": "cash_buffer",
+      "value": 1000000,
+      "description": "Cash reserve kept aside after acquisition for safety. Increasing it improves resilience but reduces funds available for renovation and overlap costs."
+    },
+    "annual_member_cashflow": {
+      "id": "annual_member_cashflow",
+      "value": 0,
+      "description": "Annual free cash left after normal church staff and operating costs are already covered. This is the amount available to support the property strategy."
+    }
+  },
+  "risk": {
+    "lease_lock_in": {
+      "id": "lease_lock_in",
+      "value": 70,
+      "description": "How much current leases restrict your timing and flexibility. Higher values mean less freedom to repurpose space quickly."
+    },
+    "conversion_uncertainty": {
+      "id": "conversion_uncertainty",
+      "value": 65,
+      "description": "How uncertain you are about layout changes, structure, and hidden building work. Higher values raise overall project risk."
+    },
+    "approvals_risk": {
+      "id": "approvals_risk",
+      "value": 70,
+      "description": "How difficult regulatory approval and compliance may be. Higher values increase expected delay and cost risk."
+    },
+    "regulation_risk": {
+      "id": "regulation_risk",
+      "value": 70,
+      "description": "How uncertain lawful use, zoning, assembly permission, or other regulatory permission may be. Higher values mean more risk that the intended church use is delayed, restricted, or blocked."
+    },
+    "financing_pressure": {
+      "id": "financing_pressure",
+      "value": 75,
+      "description": "How tight the financing picture feels. Higher values mean less room for surprises in purchase price, timing, or cost escalation."
+    },
+    "income_dependency": {
+      "id": "income_dependency",
+      "value": 60,
+      "description": "How much the project depends on rent or shared-use income. Higher values mean the case weakens more if tenants or events underperform."
+    },
+    "market_buffer": {
+      "id": "market_buffer",
+      "value": 40,
+      "description": "How much price cushion you believe exists. Higher values improve resilience because the purchase feels less stretched."
+    },
+    "management_complexity": {
+      "id": "management_complexity",
+      "value": 55,
+      "description": "How hard the transition will be to manage operationally. Higher values mean more execution risk and more chance of friction or delay."
+    },
+    "contingency_cover": {
+      "id": "contingency_cover",
+      "value": 45,
+      "description": "How strong your fallback reserves and mitigations are. Higher values reduce effective project risk."
+    }
+  },
+  "renovation": {
+    "hall_area": {
+      "id": "hall_area",
+      "value": 420.0,
+      "description": "Estimated area to convert into the main hall zone. Increasing it raises cost, but may also improve capacity and usefulness."
+    },
+    "hall_light": {
+      "id": "hall_light",
+      "value": 4500,
+      "description": "Low-cost hall adaptation rate. Increasing it raises the light scenario total."
+    },
+    "hall_medium": {
+      "id": "hall_medium",
+      "value": 8500,
+      "description": "Mid-range hall conversion rate. Increasing it raises the mid scenario total."
+    },
+    "hall_heavy": {
+      "id": "hall_heavy",
+      "value": 13500,
+      "description": "High intervention hall rate for more serious rebuilding and systems work."
+    },
+    "office_area": {
+      "id": "office_area",
+      "value": 300.0,
+      "description": "Estimated office, classroom, or weekday-use area to improve. Increasing it raises cost but can increase flexibility and income options."
+    },
+    "office_light": {
+      "id": "office_light",
+      "value": 2500,
+      "description": "Low-cost office/classroom rate."
+    },
+    "office_medium": {
+      "id": "office_medium",
+      "value": 5500,
+      "description": "Mid-range office/classroom rate."
+    },
+    "office_heavy": {
+      "id": "office_heavy",
+      "value": 8500,
+      "description": "High intervention office/classroom rate."
+    },
+    "basement_area": {
+      "id": "basement_area",
+      "value": 200.0,
+      "description": "Estimated basement or support-space area to improve. Increasing it raises cost but may improve storage and back-of-house operations."
+    },
+    "basement_light": {
+      "id": "basement_light",
+      "value": 1500,
+      "description": "Low-cost basement/support-space rate."
+    },
+    "basement_medium": {
+      "id": "basement_medium",
+      "value": 3500,
+      "description": "Mid-range basement/support-space rate."
+    },
+    "basement_heavy": {
+      "id": "basement_heavy",
+      "value": 5500,
+      "description": "High intervention basement/support-space rate."
+    },
+    "specialist_fees_pct": {
+      "id": "specialist_fees_pct",
+      "value": 8.0,
+      "description": "Architect, engineer, consultant, and similar professional costs. Higher values increase every renovation scenario."
+    },
+    "contingency_pct": {
+      "id": "contingency_pct",
+      "value": 15.0,
+      "description": "Reserve for surprises and omissions. Higher values increase budget but lower the chance of being underfunded."
+    },
+    "fixed_fire_hvac": {
+      "id": "fixed_fire_hvac",
+      "value": 2500000,
+      "description": "Allowance for ventilation, fire, code, and compliance-heavy work. Increasing it materially raises total project cost."
+    },
+    "technical_catchup": {
+      "id": "technical_catchup",
+      "value": 1000000,
+      "description": "Allowance for roof, drainage, electrical, water ingress, and other base-building issues that are not part of room fit-out."
+    },
+    "tenant_turnover": {
+      "id": "tenant_turnover",
+      "value": 500000,
+      "description": "Allowance for making areas usable after tenant change, demolition, strip-out, partitions, cleaning, and practical adaptation work."
+    },
+    "site_parking": {
+      "id": "site_parking",
+      "value": 250000,
+      "description": "Allowance for outdoor works, access improvements, markings, lighting, or other site-related upgrades."
+    },
+    "furniture_av": {
+      "id": "furniture_av",
+      "value": 1250000,
+      "description": "Allowance for chairs, AV, loose furniture, and non-building fit-out items."
+    },
+    "must_do_before_use_pct": {
+      "id": "must_do_before_use_pct",
+      "value": 65.0,
+      "description": "Share of the renovation program that must be funded before the building can realistically start being used for the intended church program."
+    }
+  },
+  "income": {
+    "income_source_index": {
+      "id": "income_source_index",
+      "value": 0,
+      "description": "Choose whether income scenarios use the whole building or a second-floor-only case after giving the first floor to church use."
+    },
+    "contracted_rent": {
+      "id": "contracted_rent",
+      "value": 1320078,
+      "description": "Current annual rent already contracted. Increasing it improves transition cash support and debt coverage."
+    },
+    "vacant_upside": {
+      "id": "vacant_upside",
+      "value": 711589,
+      "description": "Additional income you may be able to create from vacant or underused areas. Increasing it improves upside but may rely on execution."
+    },
+    "second_floor_contracted_rent": {
+      "id": "second_floor_contracted_rent",
+      "value": 758705,
+      "description": "Current annual contracted rent visible on the second floor only, based on the prospect's listed rents for the medical center, Makeupediaa, and the psychologist."
+    },
+    "second_floor_vacant_upside": {
+      "id": "second_floor_vacant_upside",
+      "value": 34087,
+      "description": "Indicative additional annual upside from the vacant 31 m² second-floor office, using the implied current second-floor rent level."
+    },
+    "exclude_hall_income_when_second_floor_only": {
+      "id": "exclude_hall_income_when_second_floor_only",
+      "value": true,
+      "description": "When enabled, hall/event income is forced to zero in the second-floor-only scenario because the first floor is assumed to be dedicated to church use rather than rent-producing events."
+    },
+    "retained_lease_income_pct": {
+      "id": "retained_lease_income_pct",
+      "value": 70.0,
+      "description": "How much of current lease income survives the transition. Lower values weaken cash support during changeover."
+    },
+    "expected_collection_pct": {
+      "id": "expected_collection_pct",
+      "value": 95.0,
+      "description": "Expected cash collection quality. Lower values mean income on paper turns into less money in hand."
+    },
+    "hall_rental_income": {
+      "id": "hall_rental_income",
+      "value": 350000,
+      "description": "Expected yearly hall or event income. Increasing it improves the income case, but may be uncertain if demand is not proven."
+    },
+    "classroom_office_income": {
+      "id": "classroom_office_income",
+      "value": 250000,
+      "description": "Expected yearly room, classroom, office, or counseling income."
+    },
+    "parking_income": {
+      "id": "parking_income",
+      "value": 60000,
+      "description": "Smaller supporting income such as parking or other ancillary uses."
+    },
+    "operating_cost_ratio": {
+      "id": "operating_cost_ratio",
+      "value": 28.0,
+      "description": "Share of gross income lost to operating costs. Increasing it reduces the net amount available for debt and project support."
+    }
+  },
+  "hall": {
+    "scenario_index": {
+      "id": "scenario_index",
+      "value": 1,
+      "description": "Choose the floor-opening scenario to test. More aggressive scenarios increase potential capacity but assume more conversion freedom."
+    },
+    "min_space_per_person": {
+      "id": "min_space_per_person",
+      "value": 0.8,
+      "description": "Area allowed per person in a dense layout. Lower values increase capacity but may be less realistic or less comfortable."
+    },
+    "max_space_per_person": {
+      "id": "max_space_per_person",
+      "value": 1.0,
+      "description": "Area allowed per person in a more comfortable layout. Higher values reduce capacity but improve circulation and comfort."
+    },
+    "weekly_major_events": {
+      "id": "weekly_major_events",
+      "value": 2,
+      "description": "Number of major gatherings per week. Higher values increase hall utilization assumptions."
+    },
+    "support_room_source_index": {
+      "id": "support_room_source_index",
+      "value": 1,
+      "description": "Choose whether usable support rooms are assumed to come mainly from the basement, the second floor, or both."
+    },
+    "basement_usable_rooms": {
+      "id": "basement_usable_rooms",
+      "value": 4,
+      "description": "Working estimate of usable support rooms sourced from the basement, based on the prospect's mention of reception, dining room, kitchen, offices, and other rooms."
+    },
+    "second_floor_usable_rooms": {
+      "id": "second_floor_usable_rooms",
+      "value": 8,
+      "description": "Working estimate of usable support rooms sourced from the second-floor sketch and prospect. The sketch visibly supports roughly 8 to 10 usable secondary rooms before redesign."
+    },
+    "small_rooms": {
+      "id": "small_rooms",
+      "value": 8,
+      "description": "Number of secondary rooms available for ministry, classes, or meetings. Higher values improve weekday flexibility."
+    },
+    "sacred_room_area": {
+      "id": "sacred_room_area",
+      "value": 80.0,
+      "description": "First-floor area reserved for a dedicated sacred room or tabot space rather than the main congregation hall."
+    },
+    "avg_room_capacity": {
+      "id": "avg_room_capacity",
+      "value": 12,
+      "description": "Average occupancy capacity in support rooms."
+    },
+    "weekday_utilization_hours": {
+      "id": "weekday_utilization_hours",
+      "value": 22,
+      "description": "Estimated weekly use hours for smaller rooms. Higher values imply more weekday program intensity."
+    }
+  },
+  "mortgage": {
+    "principal": {
+      "id": "principal",
+      "value": 16000000,
+      "description": "Principal borrowed from the bank. Increasing it improves purchase capacity but raises repayment and interest burden."
+    },
+    "establishment_fee": {
+      "id": "establishment_fee",
+      "value": 120000,
+      "description": "One-off fee charged when the loan is set up."
+    },
+    "monthly_term_fee": {
+      "id": "monthly_term_fee",
+      "value": 70,
+      "description": "Monthly bank fee added to each payment."
+    },
+    "rate": {
+      "id": "rate",
+      "value": 6.85,
+      "description": "Nominal bank interest rate. Increasing it raises the interest portion of every payment."
+    },
+    "years": {
+      "id": "years",
+      "value": 15,
+      "description": "Loan duration. Shorter terms increase monthly principal payments but reduce debt faster."
+    },
+    "sale_delay_months": {
+      "id": "sale_delay_months",
+      "value": 9,
+      "description": "Delay before the current building is sold. Increasing it delays the benefit of any prepayment and keeps interest higher for longer."
+    },
+    "sale_prepayment_share": {
+      "id": "sale_prepayment_share",
+      "value": 75.0,
+      "description": "Planning assumption for how much of the outstanding loan is repaid when the sale occurs. Higher values lower later interest and payment burden."
+    },
+    "use_sidebar_loan_used": {
+      "id": "use_sidebar_loan_used",
+      "value": true,
+      "description": "When enabled, the Mortgage Plan loan principal follows the actual bank loan used from the sidebar rather than a separate manual value."
+    },
+    "use_sidebar_financing_terms": {
+      "id": "use_sidebar_financing_terms",
+      "value": true,
+      "description": "When enabled, the Mortgage Plan rate and loan term follow the sidebar financing assumptions so coverage and schedule views stay aligned."
+    },
+    "include_sale_prepayment": {
+      "id": "include_sale_prepayment",
+      "value": true,
+      "description": "Turn this on to model a lump-sum loan reduction when the current building is sold."
+    }
+  },
+  "exit_path": {
+    "alna_sale_price": {
+      "id": "alna_sale_price",
+      "value": 25000000,
+      "description": "Expected gross sale price for Alnafetgata in the fallback path."
+    },
+    "alna_sale_cost_pct": {
+      "id": "alna_sale_cost_pct",
+      "value": 3.0,
+      "description": "Broker, legal, and transaction cost deducted from the Alnafetgata sale before cash is available."
+    },
+    "grans_income_waiting": {
+      "id": "grans_income_waiting",
+      "value": 1320078,
+      "description": "Expected annual Gransdalen property income while Sebeka is still renting elsewhere and not yet using Gransdalen as the main worship site."
+    },
+    "annual_external_hall_rent": {
+      "id": "annual_external_hall_rent",
+      "value": 1200000,
+      "description": "Annual rent for the larger hall Sebeka would use instead of moving into Gransdalen immediately."
+    },
+    "annual_rented_hall_staff": {
+      "id": "annual_rented_hall_staff",
+      "value": 932757,
+      "description": "Annual staff cost for the rented-hall fallback path, aligned to the 2025 staff figure from the General Assembly report."
+    },
+    "annual_rented_hall_running_cost": {
+      "id": "annual_rented_hall_running_cost",
+      "value": 150000,
+      "description": "Other annual running cost of using a rented hall, such as storage, transport, cleaning, consumables, or service charges."
+    },
+    "annual_reinnovation_spend": {
+      "id": "annual_reinnovation_spend",
+      "value": 1500000,
+      "description": "Annual budget reserved for phased reinnovation, design work, or municipality / approval work while Sebeka is not moving into Gransdalen yet."
+    },
+    "annual_support_help": {
+      "id": "annual_support_help",
+      "value": 1000000,
+      "description": "Optional annual grant, municipality support, or other external help used only in the support-assisted waiting path."
+    },
+    "years_to_test": {
+      "id": "years_to_test",
+      "value": 3,
+      "description": "How many years of the fallback path to test."
+    }
+  },
+  "operations": {
+    "use_income_tab_for_grans": {
+      "id": "use_income_tab_for_grans",
+      "value": true,
+      "description": "When enabled, the Gransdalen property-income figure is pulled from the Income Generation tab's base-case gross income. Turn this off to enter a manual override."
+    },
+    "grans_insurance": {
+      "id": "grans_insurance",
+      "value": 180000,
+      "description": "Annual insurance cost for Gransdalen."
+    },
+    "grans_utilities": {
+      "id": "grans_utilities",
+      "value": 420000,
+      "description": "Annual utilities for Gransdalen such as electricity, heating, and water."
+    },
+    "grans_maintenance": {
+      "id": "grans_maintenance",
+      "value": 300000,
+      "description": "Annual maintenance reserve for Gransdalen."
+    },
+    "grans_cleaning": {
+      "id": "grans_cleaning",
+      "value": 220000,
+      "description": "Cleaning, waste, and routine operational cost at Gransdalen."
+    },
+    "grans_security": {
+      "id": "grans_security",
+      "value": 90000,
+      "description": "Security, alarm, and compliance-related running cost at Gransdalen."
+    },
+    "grans_other": {
+      "id": "grans_other",
+      "value": 120000,
+      "description": "Any additional Gransdalen cost not already listed. Increasing it raises total carrying cost."
+    },
+    "grans_contingency": {
+      "id": "grans_contingency",
+      "value": 100000,
+      "description": "Extra annual buffer for Gransdalen operating surprises. Increasing it raises prudence and cost at the same time."
+    },
+    "grans_income_override": {
+      "id": "grans_income_override",
+      "value": 1320078,
+      "description": "Annual property-related income from Gransdalen such as rent or paid use. Increasing it reduces net overlap pressure."
+    },
+    "alna_insurance": {
+      "id": "alna_insurance",
+      "value": 120000,
+      "description": "Annual insurance cost for Alnafetgata 2."
+    },
+    "alna_staff": {
+      "id": "alna_staff",
+      "value": 932757,
+      "description": "Annual staff cost attributed to Alnafetgata 2, seeded from the 2025 actual salary figure in the General Assembly report."
+    },
+    "alna_utilities": {
+      "id": "alna_utilities",
+      "value": 260000,
+      "description": "Annual utilities for Alnafetgata 2."
+    },
+    "alna_maintenance": {
+      "id": "alna_maintenance",
+      "value": 180000,
+      "description": "Annual maintenance reserve for Alnafetgata 2."
+    },
+    "alna_cleaning": {
+      "id": "alna_cleaning",
+      "value": 110000,
+      "description": "Cleaning, waste, and routine operational cost at Alnafetgata 2."
+    },
+    "alna_other": {
+      "id": "alna_other",
+      "value": 80000,
+      "description": "Any additional Alnafetgata 2 cost not already listed."
+    },
+    "alna_contingency": {
+      "id": "alna_contingency",
+      "value": 50000,
+      "description": "Extra annual buffer for Alnafetgata operating surprises. Increasing it raises prudence and cost at the same time."
+    },
+    "alna_income": {
+      "id": "alna_income",
+      "value": 0,
+      "description": "Annual property-related income still generated by Alnafetgata 2 during overlap."
+    },
+    "overlap_months": {
+      "id": "overlap_months",
+      "value": 9,
+      "description": "How long both sites must be carried at the same time. Increasing it raises temporary double-running pressure."
+    },
+    "duplicate_staffing": {
+      "id": "duplicate_staffing",
+      "value": 180000,
+      "description": "Extra staffing or management cost caused by running both properties during transition."
+    },
+    "moving_cost": {
+      "id": "moving_cost",
+      "value": 300000,
+      "description": "One-time moving and transition cost."
+    },
+    "overlap_income_offset": {
+      "id": "overlap_income_offset",
+      "value": 0,
+      "description": "Additional temporary income that offsets overlap pressure but is not already counted in the building income fields."
+    }
+  }
+}

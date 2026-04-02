@@ -1,0 +1,25 @@
+{
+  "app": {
+    "page_title": "Church Property Evaluation Tool",
+    "title": "Church Property Evaluation Tool",
+    "caption": "Planning support only. Use this to compare acquisition and transition scenarios, not to produce legal, valuation, or construction-grade numbers."
+  },
+  "sidebar": {
+    "profile_header": "Portfolio Profile",
+    "core_header": "Core Assumptions",
+    "core_caption": "Money inputs below are in NOK millions (M) unless marked as % or years.",
+    "ministry_header": "Ministry Baseline"
+  },
+  "tabs": {
+    "screening": "Screening Framework",
+    "risk": "Risk Assessment",
+    "renovation": "Renovation Cost",
+    "income": "Income Generation",
+    "space": "Space Utilization",
+    "mortgage": "Mortgage Plan",
+    "overlap": "Portfolio Overlap",
+    "scenarios": "Scenario Paths",
+    "thresholds": "Thresholds",
+    "diligence": "Due Diligence"
+  }
+}

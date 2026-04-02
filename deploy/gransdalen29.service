@@ -1,0 +1,15 @@
+[Unit]
+Description=Gransdalen 29 Streamlit App
+After=network.target
+
+[Service]
+Type=simple
+User=dhis
+WorkingDirectory=/home/abyot/coding/EOTCNOR/Gransdalen29
+Environment="PATH=/home/abyot/coding/EOTCNOR/Gransdalen29/.venv/bin"
+ExecStart=/home/abyot/coding/EOTCNOR/Gransdalen29/.venv/bin/streamlit run streamlit_app.py --server.address 127.0.0.1 --server.port 8501
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
