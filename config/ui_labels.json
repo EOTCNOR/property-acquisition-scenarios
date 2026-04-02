@@ -1,25 +1,107 @@
 {
   "app": {
-    "page_title": "Church Property Evaluation Tool",
-    "title": "Church Property Evaluation Tool",
+    "page_title": "Property Acquisition Scenarios Tool",
+    "title": "Property Acquisition Scenarios Tool",
     "caption": "Planning support only. Use this to compare acquisition and transition scenarios, not to produce legal, valuation, or construction-grade numbers."
   },
   "sidebar": {
     "profile_header": "Portfolio Profile",
+    "organization_name": "Organization name",
+    "candidate_building_name": "Candidate building name",
+    "current_building_name": "Current building name",
+    "candidate_building_address": "Candidate property address",
+    "candidate_building_latitude": "Candidate lat",
+    "candidate_building_longitude": "Candidate lon",
+    "candidate_floors": "Candidate floors",
+    "candidate_total_area": "Candidate total area (m2)",
     "core_header": "Core Assumptions",
     "core_caption": "Money inputs below are in NOK millions (M) unless marked as % or years.",
-    "ministry_header": "Ministry Baseline"
+    "target_bid": "Target bid (M)",
+    "closing_cost_pct": "Closing costs %",
+    "bank_loan": "Bank loan available (M)",
+    "own_funds": "Own funds available (M)",
+    "nominal_rate": "Interest rate %",
+    "amort_years": "Amortization years",
+    "ministry_header": "Ministry Baseline",
+    "use_ministry_baseline": "Use ministry baseline to derive free cash",
+    "annual_ministry_income": "Annual ministry income (M)",
+    "annual_staff_cost": "Annual staff / payroll cost (M)",
+    "annual_ministry_other_cost": "Annual ministry running cost excl. property (M)",
+    "manual_annual_member_cashflow": "Manual annual free cash after church operations (M)"
   },
   "tabs": {
+    "summary": "Executive Summary",
     "screening": "Screening Framework",
-    "risk": "Risk Assessment",
+    "member_geography": "Member Geography",
     "renovation": "Renovation Cost",
     "income": "Income Generation",
     "space": "Space Utilization",
     "mortgage": "Mortgage Plan",
     "overlap": "Portfolio Overlap",
     "scenarios": "Scenario Paths",
-    "thresholds": "Thresholds",
-    "diligence": "Due Diligence"
+    "thresholds": "Thresholds"
+  },
+  "summary": {
+    "title": "Executive summary",
+    "caption": "This page is for board and elder review. It pulls the main conclusion from the detailed tabs into one decision view.",
+    "compare_caption": "Use this section to answer a practical board question: if we move to this exact property, do we improve member access fairly compared with where we are today?",
+    "bottom_line_caption": "This page reuses the live outputs from the detailed tabs so the board summary stays consistent with the working case.",
+    "sections": {
+      "recommendation": "Recommendation Snapshot",
+      "pillars": "Decision Pillars",
+      "compare_current": "Candidate Compared With Current Church",
+      "bottom_line": "Current Bottom Line"
+    },
+    "metrics": {
+      "proceed_signal": "Proceed signal",
+      "gateway_score": "Gateway score",
+      "core_checks_confirmed": "Core checks confirmed",
+      "largest_unresolved_area": "Largest unresolved area",
+      "selected_renovation_cost": "Selected renovation cost",
+      "net_property_income": "Net property income",
+      "bridge_shortfall": "Bridge shortfall",
+      "financial_risk_score": "Financial risk score"
+    }
+  },
+  "screening": {
+    "title": "Screening and diligence framework",
+    "caption_1": "Use this as the front door for the candidate case: record what is actually confirmed, then score the remaining assumptions.",
+    "caption_2": "Sidebar inputs already hold price, financing, floors, and ministry baseline. This tab is for gateway judgment, diligence status, and fit.",
+    "confirmed_facts_caption": "Use these fields for facts you believe are actually checked. These statuses override weaker heuristic slider values in the summary below.",
+    "assumptions_caption": "These are directional judgments where you may not have hard confirmation yet.",
+    "financial_snapshot_caption": "This keeps the non-technical project risks visible in the same gateway tab: funding pressure, lease dependence, contingency strength, and execution complexity.",
+    "checklist_caption": "This is the working checklist behind the summary above. Use it to keep unknowns explicit and assign the next concrete verification task.",
+    "sections": {
+      "confirmed_facts": "Confirmed diligence facts",
+      "assumptions": "Screening assumptions",
+      "gateway_summary": "Gateway summary",
+      "financial_snapshot": "Financial risk snapshot",
+      "checklist": "Diligence checklist"
+    }
+  },
+  "space": {
+    "title": "Space utilization",
+    "caption": "This is the floor-by-floor planning base for the rest of the tool. Define what each floor is for here, then use the same floor logic in Renovation Cost and Income Generation.",
+    "summary_caption": "Decision-maker reading: this tab defines the intended role of each floor. The same floor plan should be visible again in renovation scope and income assumptions.",
+    "sections": {
+      "planning_summary": "Planning summary"
+    }
+  },
+  "renovation": {
+    "title": "Renovation / conversion scenarios",
+    "caption": "This model now follows the same floor logic as Space Utilization. Decide which floors are in scope, what area is being touched on each floor, and then add the building-wide items that decision makers should see separately.",
+    "summary_caption": "Decision-maker reading: the selected scenario combines floor-level work with shared building-wide cost.",
+    "sections": {
+      "shared_items": "Building-wide items",
+      "summary": "Renovation summary"
+    }
+  },
+  "income": {
+    "title": "Income generation",
+    "caption": "This model uses the same floor plan as Space Utilization. Turn income on only for floors that can realistically produce it, and leave the others at zero.",
+    "summary_caption": "Decision-maker reading: this scenario shows how many floors produce income and what net support remains after operating cost.",
+    "sections": {
+      "summary": "Income summary"
+    }
   }
 }

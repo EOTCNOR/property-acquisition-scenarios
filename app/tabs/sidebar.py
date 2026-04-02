@@ -4,6 +4,7 @@ import streamlit as st
 
 from app.finance import first_year_loan_payments
 from app.formatting import fmt_m, millions, sidebar_summary_row, signed_m
+from app.member_distribution import lookup_known_address_coordinates
 
 
 def render_sidebar(default, description, label) -> dict:
@@ -11,29 +12,54 @@ def render_sidebar(default, description, label) -> dict:
     with st.sidebar:
         st.header(label("sidebar.profile_header", "Portfolio Profile"))
         ctx["organization_name"] = st.text_input(
-            "Organization name",
+            label("sidebar.organization_name", "Organization name"),
             value=str(default("profile", "organization_name", "Church organization")),
             help=description("profile", "organization_name", "Name used in scenario captions and summary language throughout the tool."),
         )
         ctx["candidate_building_name"] = st.text_input(
-            "Candidate building name",
+            label("sidebar.candidate_building_name", "Candidate building name"),
             value=str(default("profile", "candidate_building_name", "Candidate building")),
             help=description("profile", "candidate_building_name", "Short working name for the building being evaluated for purchase."),
         )
         ctx["current_building_name"] = st.text_input(
-            "Current building name",
+            label("sidebar.current_building_name", "Current building name"),
             value=str(default("profile", "current_building_name", "Current building")),
             help=description("profile", "current_building_name", "Short working name for the building currently occupied or owned."),
         )
+        ctx["candidate_building_address"] = st.text_input(
+            label("sidebar.candidate_building_address", "Candidate property address"),
+            value=str(default("profile", "candidate_building_address", "")),
+            help=description("profile", "candidate_building_address", "Street address for the candidate property. This is used in member-geography comparisons and exact property analysis."),
+        )
+        candidate_known_coords = lookup_known_address_coordinates(ctx["candidate_building_address"])
+        candidate_default_lat = candidate_known_coords[0] if candidate_known_coords else float(default("profile", "candidate_building_latitude", 59.9270))
+        candidate_default_lon = candidate_known_coords[1] if candidate_known_coords else float(default("profile", "candidate_building_longitude", 10.9120))
+        coord_col1, coord_col2 = st.columns(2)
+        with coord_col1:
+            ctx["candidate_building_latitude"] = st.number_input(
+                label("sidebar.candidate_building_latitude", "Candidate lat"),
+                value=float(candidate_default_lat),
+                step=0.0001,
+                format="%.6f",
+                help=description("profile", "candidate_building_latitude", "Latitude used for exact property distance analysis. If the address is known in the app, this is prefilled automatically."),
+            )
+        with coord_col2:
+            ctx["candidate_building_longitude"] = st.number_input(
+                label("sidebar.candidate_building_longitude", "Candidate lon"),
+                value=float(candidate_default_lon),
+                step=0.0001,
+                format="%.6f",
+                help=description("profile", "candidate_building_longitude", "Longitude used for exact property distance analysis. If the address is known in the app, this is prefilled automatically."),
+            )
         ctx["candidate_floors"] = st.number_input(
-            "Candidate floors",
+            label("sidebar.candidate_floors", "Candidate floors"),
             min_value=1,
             value=int(default("profile", "candidate_floors", 3)),
             step=1,
             help=description("profile", "candidate_floors", "Number of floors in the candidate building used as a quick screening reference."),
         )
         ctx["candidate_total_area"] = st.number_input(
-            "Candidate total area (m2)",
+            label("sidebar.candidate_total_area", "Candidate total area (m2)"),
             min_value=0.0,
             value=float(default("profile", "candidate_total_area", 1_250.0)),
             step=25.0,
@@ -44,7 +70,7 @@ def render_sidebar(default, description, label) -> dict:
         st.header(label("sidebar.core_header", "Core Assumptions"))
         st.caption(label("sidebar.core_caption", "Money inputs below are in NOK millions (M) unless marked as % or years."))
         ctx["target_bid"] = st.number_input(
-            "Target bid (M)",
+            label("sidebar.target_bid", "Target bid (M)"),
             min_value=0.0,
             value=millions(default("core", "target_bid", 22_000_000)),
             step=0.25,
@@ -52,7 +78,7 @@ def render_sidebar(default, description, label) -> dict:
             help=description("core", "target_bid", "Expected purchase price for the candidate building. Increasing this raises total acquisition cost and increases pressure on financing and renovation headroom."),
         ) * 1_000_000
         ctx["closing_cost_pct"] = st.slider(
-            "Closing costs %",
+            label("sidebar.closing_cost_pct", "Closing costs %"),
             0.0,
             8.0,
             default("core", "closing_cost_pct", 2.5),
@@ -60,7 +86,7 @@ def render_sidebar(default, description, label) -> dict:
             help=description("core", "closing_cost_pct", "Percentage allowance for transaction costs such as legal, fees, and duties. Increasing it reduces cash headroom at closing."),
         )
         ctx["bank_loan"] = st.number_input(
-            "Bank loan available (M)",
+            label("sidebar.bank_loan", "Bank loan available (M)"),
             min_value=0.0,
             value=millions(default("core", "bank_loan", 16_000_000)),
             step=0.25,
@@ -68,7 +94,7 @@ def render_sidebar(default, description, label) -> dict:
             help=description("core", "bank_loan", "Bank loan assumed to be taken in full for the current scenario. Increasing it raises funds at closing and also raises debt service."),
         ) * 1_000_000
         ctx["own_funds"] = st.number_input(
-            "Own funds available (M)",
+            label("sidebar.own_funds", "Own funds available (M)"),
             min_value=0.0,
             value=millions(default("core", "own_funds", 6_000_000)),
             step=0.25,
@@ -76,7 +102,7 @@ def render_sidebar(default, description, label) -> dict:
             help=description("core", "own_funds", "Equity the church can contribute. Increasing it lowers the funding gap and future debt burden, but ties up more cash immediately."),
         ) * 1_000_000
         ctx["nominal_rate"] = st.number_input(
-            "Interest rate %",
+            label("sidebar.nominal_rate", "Interest rate %"),
             min_value=0.0,
             value=float(default("core", "nominal_rate", 6.85)),
             step=0.05,
@@ -84,7 +110,7 @@ def render_sidebar(default, description, label) -> dict:
             help=description("core", "nominal_rate", "Approximate borrowing rate used in the high-level debt-service estimate. Increasing it raises annual financing pressure."),
         )
         ctx["amort_years"] = st.slider(
-            "Amortization years",
+            label("sidebar.amort_years", "Amortization years"),
             5,
             30,
             default("core", "amort_years", 20),
@@ -94,13 +120,13 @@ def render_sidebar(default, description, label) -> dict:
         st.divider()
         st.header(label("sidebar.ministry_header", "Ministry Baseline"))
         use_ministry_baseline = st.checkbox(
-            "Use ministry baseline to derive free cash",
+            label("sidebar.use_ministry_baseline", "Use ministry baseline to derive free cash"),
             value=default("ministry", "use_ministry_baseline", True),
             help=description("ministry", "use_ministry_baseline", "When enabled, annual free cash is calculated from ministry income minus staff and ministry-running cost rather than typed manually."),
         )
         annual_ministry_income = (
             st.number_input(
-                "Annual ministry income (M)",
+                label("sidebar.annual_ministry_income", "Annual ministry income (M)"),
                 min_value=0.0,
                 value=millions(default("ministry", "annual_ministry_income", 6_750_000)),
                 step=0.10,
@@ -111,7 +137,7 @@ def render_sidebar(default, description, label) -> dict:
         )
         annual_staff_cost = (
             st.number_input(
-                "Annual staff / payroll cost (M)",
+                label("sidebar.annual_staff_cost", "Annual staff / payroll cost (M)"),
                 min_value=0.0,
                 value=millions(default("ministry", "annual_staff_cost", 2_900_000)),
                 step=0.10,
@@ -122,7 +148,7 @@ def render_sidebar(default, description, label) -> dict:
         )
         annual_ministry_other_cost = (
             st.number_input(
-                "Annual ministry running cost excl. property (M)",
+                label("sidebar.annual_ministry_other_cost", "Annual ministry running cost excl. property (M)"),
                 min_value=0.0,
                 value=millions(default("ministry", "annual_ministry_other_cost", 950_000)),
                 step=0.10,
@@ -134,7 +160,7 @@ def render_sidebar(default, description, label) -> dict:
         derived_annual_member_cashflow = annual_ministry_income - annual_staff_cost - annual_ministry_other_cost
         manual_annual_member_cashflow = (
             st.number_input(
-                "Manual annual free cash after church operations (M)",
+                label("sidebar.manual_annual_member_cashflow", "Manual annual free cash after church operations (M)"),
                 min_value=0.0,
                 value=millions(default("core", "annual_member_cashflow", max(derived_annual_member_cashflow, 0.0))),
                 step=0.10,

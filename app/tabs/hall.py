@@ -1,15 +1,16 @@
 from __future__ import annotations
 
+import pandas as pd
 import streamlit as st
 
 from app.formatting import nok
 
 
-def render_hall_tab(tab, ctx: dict, default) -> None:
+def render_hall_tab(tab, ctx: dict, default, label) -> None:
     with tab:
-        st.subheader("Space utilization")
+        st.subheader(label("space.title", "Space utilization"))
         st.caption(
-            "Define each floor by measured width and length. Choose one floor as the main assembly hall, then classify the other floors as support rooms, dining/common, rental, mixed, or unused."
+            label("space.caption", "This is the floor-by-floor planning base for the rest of the tool. Define what each floor is for here, then use the same floor logic in Renovation Cost and Income Generation.")
         )
 
         assembly_floor_number = st.selectbox(
@@ -46,6 +47,7 @@ def render_hall_tab(tab, ctx: dict, default) -> None:
         total_support_room_seats = 0
         total_possible_rental_income = 0.0
         assembly_gross_area = 0.0
+        floor_summary_rows: list[dict[str, float | int | str]] = []
 
         for floor_no in range(1, ctx["candidate_floors"] + 1):
             floor_label = f"Floor {floor_no}"
@@ -103,6 +105,16 @@ def render_hall_tab(tab, ctx: dict, default) -> None:
                     a3.metric("Likely hall capacity", f"{likely_capacity}")
                     a4.metric("Upper hall capacity", f"{upper_capacity}")
                     st.caption("Seating area is calculated as measured hall area minus the measured tabot / sacred area.")
+                    floor_summary_rows.append(
+                        {
+                            "Floor": floor_label,
+                            "Planned use": "Assembly hall",
+                            "Area (m2)": floor_area,
+                            "Rooms": 0,
+                            "Room seats": 0,
+                            "Rental seed": 0.0,
+                        }
+                    )
                 else:
                     floor_use = st.selectbox(
                         f"{floor_label} primary use",
@@ -153,12 +165,28 @@ def render_hall_tab(tab, ctx: dict, default) -> None:
                             help="Approximate number of people this floor can support in dining, gathering, or common-use mode.",
                         )
                         st.caption(f"Working common-area capacity on {floor_label}: `{dining_capacity}` people")
+                    floor_summary_rows.append(
+                        {
+                            "Floor": floor_label,
+                            "Planned use": floor_use,
+                            "Area (m2)": floor_area,
+                            "Rooms": int(st.session_state.get(f"space_floor_rooms_{floor_no}", 0)) if floor_use in {"Support rooms", "Mixed / other"} else 0,
+                            "Room seats": (
+                                int(st.session_state.get(f"space_floor_rooms_{floor_no}", 0))
+                                * int(st.session_state.get(f"space_floor_room_capacity_{floor_no}", 12))
+                                if floor_use in {"Support rooms", "Mixed / other"}
+                                else 0
+                            ),
+                            "Rental seed": float(st.session_state.get(f"space_floor_rental_income_{floor_no}", 0.0)) if floor_use in {"Rental", "Mixed / other"} else 0.0,
+                        }
+                    )
 
         effective_tabot_area = float(st.session_state.get("space_tabot_width", 4.0)) * float(st.session_state.get("space_tabot_length", 20.0))
         effective_seating_area = max(assembly_gross_area - effective_tabot_area, 0.0)
         likely_capacity = int(effective_seating_area / comfort_space_per_person) if comfort_space_per_person else 0
         upper_capacity = int(effective_seating_area / dense_space_per_person) if dense_space_per_person else 0
 
+        st.markdown(f"### {label('space.sections.planning_summary', 'Planning summary')}")
         s1, s2, s3, s4 = st.columns(4)
         s1.metric("Assembly gross area", f"{assembly_gross_area:,.0f} m2")
         s2.metric("Tabot / sacred area", f"{effective_tabot_area:,.0f} m2")
@@ -170,9 +198,13 @@ def render_hall_tab(tab, ctx: dict, default) -> None:
         r2.metric("Support-room seats", f"{total_support_room_seats}")
         r3.metric("Possible rental income", nok(total_possible_rental_income))
 
-        st.caption(
-            "This is a generic floor-by-floor scaffold. Each floor can be repurposed differently, and the hall capacity is now driven only by the measured assembly-floor size minus the measured tabot / sacred deduction."
-        )
+        st.caption(label("space.summary_caption", "Decision-maker reading: this tab defines the intended role of each floor. The same floor plan should be visible again in renovation scope and income assumptions."))
+
+        floor_summary_df = pd.DataFrame(floor_summary_rows)
+        if not floor_summary_df.empty:
+            floor_summary_df["Area (m2)"] = floor_summary_df["Area (m2)"].map(lambda value: round(float(value), 1))
+            floor_summary_df["Rental seed"] = floor_summary_df["Rental seed"].map(lambda value: nok(float(value)))
+            st.dataframe(floor_summary_df, use_container_width=True, hide_index=True)
 
         ctx["space_assembly_floor"] = assembly_floor_number
         ctx["space_total_support_rooms"] = total_support_rooms

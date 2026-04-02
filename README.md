@@ -1,6 +1,6 @@
-# Gransdalen 29 Scenario Tool
+# Property Acquisition Scenarios Tool
 
-This repository contains a Streamlit decision-support app for evaluating the Gransdalen 29 purchase and transition scenarios.
+This repository contains a Streamlit decision-support app for evaluating property-acquisition and transition scenarios.
 
 ## Requirements
 

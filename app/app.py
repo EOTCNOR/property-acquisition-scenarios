@@ -6,13 +6,13 @@ import streamlit as st
 
 from app.config import AppConfig
 from app.tabs import (
-    render_diligence_tab,
+    render_executive_summary_tab,
     render_hall_tab,
     render_income_tab,
+    render_member_geography_tab,
     render_mortgage_tab,
     render_operations_tab,
     render_renovation_tab,
-    render_risk_tab,
     render_scenario_paths_tab,
     render_screening_tab,
     render_sidebar,
@@ -36,7 +36,7 @@ def label(path: str, fallback: str) -> str:
 
 def run() -> None:
     st.set_page_config(
-        page_title=label("app.page_title", "Church Property Evaluation Tool"),
+        page_title=label("app.page_title", "Property Acquisition Scenarios Tool"),
         page_icon="🏢",
         layout="wide",
     )
@@ -55,7 +55,7 @@ def run() -> None:
         unsafe_allow_html=True,
     )
 
-    st.title(label("app.title", "Church Property Evaluation Tool"))
+    st.title(label("app.title", "Property Acquisition Scenarios Tool"))
     st.caption(
         label(
             "app.caption",
@@ -65,10 +65,11 @@ def run() -> None:
 
     ctx = render_sidebar(default, description, label)
 
-    screening_tab, risk_tab, renovation_tab, income_tab, hall_tab, mortgage_tab, ops_tab, exit_path_tab, threshold_tab, diligence_tab = st.tabs(
+    summary_tab, screening_tab, member_geo_tab, renovation_tab, income_tab, hall_tab, mortgage_tab, ops_tab, exit_path_tab, threshold_tab = st.tabs(
         [
+            label("tabs.summary", "Executive Summary"),
             label("tabs.screening", "Screening Framework"),
-            label("tabs.risk", "Risk Assessment"),
+            label("tabs.member_geography", "Member Geography"),
             label("tabs.renovation", "Renovation Cost"),
             label("tabs.income", "Income Generation"),
             label("tabs.space", "Space Utilization"),
@@ -76,17 +77,16 @@ def run() -> None:
             label("tabs.overlap", "Portfolio Overlap"),
             label("tabs.scenarios", "Scenario Paths"),
             label("tabs.thresholds", "Thresholds"),
-            label("tabs.diligence", "Due Diligence"),
         ]
     )
 
-    render_screening_tab(screening_tab, ctx, default)
-    render_risk_tab(risk_tab, ctx, default, description)
-    render_renovation_tab(renovation_tab, ctx, default, description)
-    render_income_tab(income_tab, ctx, default, description)
-    render_hall_tab(hall_tab, ctx, default)
+    render_screening_tab(screening_tab, ctx, default, label)
+    render_member_geography_tab(member_geo_tab, ctx)
+    render_renovation_tab(renovation_tab, ctx, default, description, label)
+    render_income_tab(income_tab, ctx, default, description, label)
+    render_hall_tab(hall_tab, ctx, default, label)
     render_mortgage_tab(mortgage_tab, ctx, default, description)
     render_operations_tab(ops_tab, ctx, default, description)
     render_scenario_paths_tab(exit_path_tab, ctx, default, description)
     render_thresholds_tab(threshold_tab, ctx)
-    render_diligence_tab(diligence_tab)
+    render_executive_summary_tab(summary_tab, ctx, label)

@@ -3,7 +3,7 @@
     "target_bid": {
       "id": "target_bid",
       "value": 22000000,
-      "description": "Expected purchase price for Gransdalen 29. Increasing this raises total acquisition cost and increases pressure on financing and renovation headroom."
+      "description": "Expected purchase price for the candidate property. Increasing this raises total acquisition cost and increases pressure on financing and renovation headroom."
     },
     "closing_cost_pct": {
       "id": "closing_cost_pct",
@@ -375,12 +375,12 @@
     "grans_income_waiting": {
       "id": "grans_income_waiting",
       "value": 1320078,
-      "description": "Expected annual Gransdalen property income while Sebeka is still renting elsewhere and not yet using Gransdalen as the main worship site."
+      "description": "Expected annual candidate-property income while the organization is still renting elsewhere and not yet using the candidate property as the main worship site."
     },
     "annual_external_hall_rent": {
       "id": "annual_external_hall_rent",
       "value": 1200000,
-      "description": "Annual rent for the larger hall Sebeka would use instead of moving into Gransdalen immediately."
+      "description": "Annual rent for the larger hall the organization would use instead of moving into the candidate property immediately."
     },
     "annual_rented_hall_staff": {
       "id": "annual_rented_hall_staff",
@@ -395,7 +395,7 @@
     "annual_reinnovation_spend": {
       "id": "annual_reinnovation_spend",
       "value": 1500000,
-      "description": "Annual budget reserved for phased reinnovation, design work, or municipality / approval work while Sebeka is not moving into Gransdalen yet."
+      "description": "Annual budget reserved for phased reinnovation, design work, or municipality / approval work while the organization is not moving into the candidate property yet."
     },
     "annual_support_help": {
       "id": "annual_support_help",
@@ -412,47 +412,47 @@
     "use_income_tab_for_grans": {
       "id": "use_income_tab_for_grans",
       "value": true,
-      "description": "When enabled, the Gransdalen property-income figure is pulled from the Income Generation tab's base-case gross income. Turn this off to enter a manual override."
+      "description": "When enabled, the candidate-property income figure is pulled from the Income Generation tab's base-case gross income. Turn this off to enter a manual override."
     },
     "grans_insurance": {
       "id": "grans_insurance",
       "value": 180000,
-      "description": "Annual insurance cost for Gransdalen."
+      "description": "Annual insurance cost for the candidate property."
     },
     "grans_utilities": {
       "id": "grans_utilities",
       "value": 420000,
-      "description": "Annual utilities for Gransdalen such as electricity, heating, and water."
+      "description": "Annual utilities for the candidate property such as electricity, heating, and water."
     },
     "grans_maintenance": {
       "id": "grans_maintenance",
       "value": 300000,
-      "description": "Annual maintenance reserve for Gransdalen."
+      "description": "Annual maintenance reserve for the candidate property."
     },
     "grans_cleaning": {
       "id": "grans_cleaning",
       "value": 220000,
-      "description": "Cleaning, waste, and routine operational cost at Gransdalen."
+      "description": "Cleaning, waste, and routine operational cost at the candidate property."
     },
     "grans_security": {
       "id": "grans_security",
       "value": 90000,
-      "description": "Security, alarm, and compliance-related running cost at Gransdalen."
+      "description": "Security, alarm, and compliance-related running cost at the candidate property."
     },
     "grans_other": {
       "id": "grans_other",
       "value": 120000,
-      "description": "Any additional Gransdalen cost not already listed. Increasing it raises total carrying cost."
+      "description": "Any additional candidate-property cost not already listed. Increasing it raises total carrying cost."
     },
     "grans_contingency": {
       "id": "grans_contingency",
       "value": 100000,
-      "description": "Extra annual buffer for Gransdalen operating surprises. Increasing it raises prudence and cost at the same time."
+      "description": "Extra annual buffer for candidate-property operating surprises. Increasing it raises prudence and cost at the same time."
     },
     "grans_income_override": {
       "id": "grans_income_override",
       "value": 1320078,
-      "description": "Annual property-related income from Gransdalen such as rent or paid use. Increasing it reduces net overlap pressure."
+      "description": "Annual property-related income from the candidate property such as rent or paid use. Increasing it reduces net overlap pressure."
     },
     "alna_insurance": {
       "id": "alna_insurance",

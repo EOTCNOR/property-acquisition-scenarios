@@ -1,5 +1,5 @@
 [Unit]
-Description=Gransdalen 29 Streamlit App
+Description=Property Acquisition Scenarios Tool
 After=network.target
 
 [Service]

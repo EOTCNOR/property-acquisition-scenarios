@@ -1,6 +1,7 @@
+from .executive_summary import render_executive_summary_tab
 from .sidebar import render_sidebar
+from .member_geography import render_member_geography_tab
 from .screening import render_screening_tab
-from .risk import render_risk_tab
 from .renovation import render_renovation_tab
 from .income import render_income_tab
 from .hall import render_hall_tab
@@ -8,4 +9,3 @@ from .mortgage import render_mortgage_tab
 from .operations import render_operations_tab
 from .scenario_paths import render_scenario_paths_tab
 from .thresholds import render_thresholds_tab
-from .diligence import render_diligence_tab
